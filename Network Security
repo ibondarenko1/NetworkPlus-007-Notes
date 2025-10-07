@@ -1,0 +1,344 @@
+## 4.0 Network Security (20% of the exam)
+
+### 4.1 Common Security Concepts
+
+#### CIA Triad
+- **Confidentiality:** Only authorized users can access data.  
+- **Integrity:** Data cannot be changed or tampered with.  
+- **Availability:** Systems and data are accessible when needed.
+
+#### Authentication, Authorization, and Accounting (AAA)
+- **Authentication** — verifies identity (passwords, tokens, biometrics).  
+- **Authorization** — defines what actions the user can perform.  
+- **Accounting** — tracks user activity and resource usage.
+
+#### Least Privilege
+- Users should have only the minimum rights required to perform their tasks.  
+- Reduces risk of accidental or malicious damage.
+
+#### Defense in Depth
+- Multiple security layers protect assets: physical, network, host, application, and data.
+
+#### Implicit Deny
+- Default rule in security: deny all unless explicitly allowed.
+
+#### Zero Trust
+- Never trust; always verify.  
+- Authenticate and authorize every request, even inside the network.
+
+#### Separation of Duties
+- Split critical tasks between different people to prevent abuse.
+
+#### Change Management and Configuration Management
+- Ensure all network changes are documented, tested, and approved.
+- Use version control for configuration files.
+
+#### Acceptable Use Policy (AUP)
+- Defines proper use of company systems and network.
+- Prevents legal and security issues.
+
+#### BYOD and Guest Networks
+- Segregate personal and guest devices from internal resources.
+- Use VLANs and captive portals.
+
+---
+
+### 4.2 Physical Security
+
+#### Access Control
+- **Badge Readers:** track entry and exit.  
+- **Biometric Scanners:** fingerprint, retina, or facial recognition.  
+- **Mantraps:** prevent tailgating.  
+- **Locks and Keypads:** restrict access to server rooms.
+
+#### Environmental Controls
+- Maintain proper temperature and humidity (HVAC).  
+- Use fire suppression (gas, water, or chemical).  
+- Install surge protectors and grounding.
+
+#### Surveillance
+- **CCTV systems** monitor physical locations.  
+- Recordings stored securely for forensic analysis.
+
+#### Fencing and Security Guards
+- Physical deterrence and first layer of defense.
+
+#### Cable Locks and Secure Cabinets
+- Prevent hardware theft in public or shared spaces.
+
+---
+
+### 4.3 Secure Network Design
+
+#### Network Segmentation
+- Divide network into logical zones using **VLANs** and **subnets**.
+- Limit broadcast domains and contain breaches.
+- Typical segmentation:
+  - User VLAN
+  - Server VLAN
+  - Management VLAN
+  - Guest VLAN
+  - Voice VLAN
+
+#### DMZ (Demilitarized Zone)
+- Isolated zone between internal and external networks.
+- Hosts public-facing servers (web, email, DNS).
+- Limits exposure if compromised.
+
+#### VPN (Virtual Private Network)
+- Encrypts traffic between remote devices and private networks.
+- Common types:
+  - **Site-to-Site (IPsec)** — connects entire networks.
+  - **Client-to-Site (SSL/TLS)** — connects individual users.
+
+#### VLAN Tagging
+- Uses **802.1Q** tags to identify VLAN traffic between switches.
+- Prevent VLAN hopping attacks by disabling unused ports and enforcing trunk configurations.
+
+#### NAC (Network Access Control)
+- Evaluates device health before granting access.
+- Checks antivirus, patches, and configurations.
+- Quarantines non-compliant devices.
+
+#### Air Gaps
+- Physically isolated network with no connection to others.
+- Used for critical or classified systems.
+
+#### Network Zones
+- Define trust boundaries:
+  - **Internal network**
+  - **DMZ**
+  - **External/public network**
+
+#### East-West vs North-South Traffic
+- **North-South:** between internal and external networks.  
+- **East-West:** between systems inside the same data center or LAN.  
+- East-West traffic requires microsegmentation and internal firewalls.
+
+---
+
+### 4.4 Secure Protocols
+
+#### Web Protocols
+- **HTTPS (TCP 443):** HTTP over TLS; encrypts browser traffic.  
+- **HTTP (TCP 80):** insecure; avoid in production.  
+- **HTTP/2, HTTP/3:** improve performance and security.
+
+#### Remote Access
+- **SSH (TCP 22):** secure remote administration.  
+- **Telnet (TCP 23):** unencrypted; deprecated.  
+- **RDP (TCP 3389):** encrypted remote desktop for Windows.  
+- **VNC (TCP 5900):** graphical desktop sharing (add encryption).
+
+#### File Transfer
+- **SFTP (TCP 22):** uses SSH for encryption.  
+- **FTPS (TCP 989/990):** FTP over SSL/TLS.  
+- **TFTP (UDP 69):** no authentication; for firmware or boot files.  
+- **SMB (TCP 445):** file sharing in Windows; secure with SMBv3.  
+- **NFS (TCP 2049):** file sharing in Unix/Linux.
+
+#### Email Security
+- **SMTP (TCP 25)** — outgoing mail.  
+- **POP3 (TCP 110)** and **IMAP (TCP 143)** — incoming mail.  
+- Secure versions:
+  - **SMTPS (465)**, **POP3S (995)**, **IMAPS (993)**.  
+- **SPF, DKIM, DMARC** — protect against spoofing and phishing.
+
+#### Directory and Authentication
+- **LDAP (TCP 389)** — directory queries.  
+- **LDAPS (TCP 636)** — LDAP over SSL/TLS.  
+- **Kerberos (TCP/UDP 88)** — ticket-based authentication.  
+- **RADIUS (UDP 1812/1813)** — AAA protocol for VPNs, Wi-Fi, etc.  
+- **TACACS+ (TCP 49)** — Cisco AAA protocol, encrypts full payload.
+
+#### Time and Sync
+- **NTP (UDP 123):** synchronize device clocks; essential for logs and certificates.  
+- Secure it with authentication or internal NTP sources.
+
+#### Network Management
+- **SNMPv3:** secure management with encryption and authentication.  
+- Disable SNMPv1/v2c.
+
+---
+
+### 4.5 Wireless Security
+
+#### Encryption Standards
+- **WEP:** deprecated; static keys; easily broken.  
+- **WPA:** RC4 + TKIP; better but obsolete.  
+- **WPA2:** AES + CCMP; industry standard.  
+- **WPA3:** SAE (Simultaneous Authentication of Equals); current standard.
+
+#### Authentication Methods
+- **Open:** no security.  
+- **PSK (Pre-Shared Key):** shared password.  
+- **Enterprise (802.1X):** uses RADIUS for authentication.
+
+#### EAP Types
+- **EAP-TLS:** certificate-based; most secure.  
+- **EAP-TTLS:** tunneled TLS; easier deployment.  
+- **PEAP:** commonly used with Active Directory.  
+- **LEAP:** Cisco proprietary; not secure.
+
+#### Captive Portals
+- Used for guest access (hotels, cafes).
+- Require acceptance of terms before access.
+
+#### WPS (Wi-Fi Protected Setup)
+- Simplifies setup but insecure (PIN brute-force).
+- Disable in enterprise environments.
+
+#### Rogue Access Points
+- Unauthorized APs create backdoors into the network.
+- Detect using WIPS (Wireless Intrusion Prevention System).
+
+#### Evil Twin
+- Malicious AP mimicking legitimate SSID.
+- Used for credential theft.
+
+#### Antenna Placement
+- Place APs for optimal coverage but limit signal leakage outside the building.
+- Use site surveys to minimize interference.
+
+---
+
+### 4.6 Authentication and Access Controls
+
+#### Authentication Factors
+1. **Something you know** — password, PIN.  
+2. **Something you have** — smart card, token.  
+3. **Something you are** — biometrics.  
+4. **Somewhere you are** — geolocation.  
+5. **Something you do** — behavioral (typing rhythm, gestures).
+
+#### Multi-Factor Authentication (MFA)
+- Combines two or more factors from different categories.
+
+#### 802.1X
+- Port-based access control for wired and wireless networks.
+- Uses EAP and RADIUS to authenticate devices before granting access.
+
+#### Captive Portals
+- Used for guest authentication.
+- Redirects user to web page for login or acceptance.
+
+#### MAC Filtering
+- Allows or blocks devices based on their MAC address.
+- Easy to spoof; not reliable as the sole security measure.
+
+#### Certificate-Based Authentication
+- Uses digital certificates to verify identity.
+- Strong, tamper-proof method used in enterprises.
+
+#### Account Lockout Policy
+- Prevent brute-force attacks by locking accounts after failed attempts.
+
+---
+
+### 4.7 Security Threats and Attacks
+
+#### Social Engineering
+- Manipulating users to reveal information or perform actions.
+- Types:
+  - **Phishing:** email-based deception.
+  - **Spear phishing:** targeted phishing.
+  - **Whaling:** targeting executives.
+  - **Vishing:** voice phishing.
+  - **Smishing:** SMS phishing.
+  - **Tailgating:** following authorized personnel.
+  - **Pretexting:** impersonating authority.
+  - **Baiting:** offering something tempting (USB drive).
+  - **Dumpster diving:** collecting discarded sensitive info.
+
+#### Malware Types
+- **Virus:** needs user execution to spread.  
+- **Worm:** self-replicating over networks.  
+- **Trojan:** disguised as legitimate software.  
+- **Spyware:** monitors user activity.  
+- **Adware:** unwanted advertising.  
+- **Ransomware:** encrypts files for ransom.  
+- **Rootkit:** hides malicious activity.  
+- **Keylogger:** records keystrokes.
+
+#### Network Attacks
+- **DoS/DDoS:** flood network or system with traffic.  
+- **Man-in-the-Middle (MITM):** intercepts communication.  
+- **ARP Poisoning:** sends fake ARP responses.  
+- **DNS Spoofing:** redirects traffic to fake sites.  
+- **Rogue DHCP:** assigns malicious IP configurations.  
+- **MAC Flooding:** overloads switch’s CAM table.  
+- **Evil Twin:** rogue wireless AP.
+
+#### Credential Attacks
+- **Brute-force:** try every combination.  
+- **Dictionary attack:** try common passwords.  
+- **Rainbow table:** precomputed hashes.  
+- **Credential stuffing:** reuse of leaked credentials.  
+
+#### Replay Attack
+- Captures and reuses valid credentials or tokens.
+
+#### Session Hijacking
+- Steals active session cookies to impersonate user.
+
+#### Insider Threats
+- Employees or contractors abusing access intentionally or accidentally.
+
+#### Physical Attacks
+- **Theft**, **vandalism**, **shoulder surfing**, or **hardware tampering**.
+
+#### Vulnerabilities
+- Weak configurations, outdated software, or unpatched systems.
+
+---
+
+### 4.8 Mitigation Techniques
+
+#### Network Hardening
+- Disable unused ports and services.
+- Enforce strong passwords and MFA.
+- Apply patches and updates.
+- Implement ACLs and firewalls.
+- Use port security and 802.1X.
+
+#### Device Hardening
+- Change default credentials.
+- Update firmware.
+- Disable unnecessary management interfaces.
+- Use encrypted protocols (SSH, HTTPS).
+
+#### Segmentation and Isolation
+- Separate traffic via VLANs and firewalls.
+- Isolate guest and IoT devices.
+
+#### Firewalls and ACLs
+- Define inbound/outbound rules.
+- Deny by default; allow specific traffic.
+- Apply least privilege principle.
+
+#### Intrusion Detection and Prevention
+- **IDS:** alert on suspicious activity.
+- **IPS:** block malicious traffic in real time.
+
+#### Honeypots
+- Fake targets designed to lure attackers for analysis.
+- Used to study attack patterns.
+
+#### Patching and Updates
+- Maintain patch schedules.
+- Track vulnerabilities (CVE databases).
+
+#### Access Control Lists (ACL)
+- Filter traffic based on IP, port, or protocol.
+- Implement at routers or firewalls.
+
+#### Logging and Monitoring
+- Log authentication, network access, and system changes.
+- Store securely and analyze regularly.
+
+#### Training and Awareness
+- Educate employees about phishing and social engineering.
+- Conduct regular security drills.
+
+---
+
