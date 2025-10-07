@@ -1,0 +1,278 @@
+## 5.0 Network Troubleshooting and Tools (22% of the exam)
+
+### 5.1 Network Troubleshooting Methodology
+
+A structured troubleshooting approach minimizes downtime and prevents repeated issues.
+
+#### 1. Identify the Problem
+- Gather information from users and logs.
+- Determine the scope: who, what, when, where.
+- Establish symptoms (connectivity, slowness, errors).
+- Check recent changes or updates.
+- Duplicate the problem if possible.
+
+#### 2. Establish a Theory of Probable Cause
+- Consider the simplest explanation first.
+- Use the **OSI model** to isolate the layer:
+  - Physical → Data Link → Network → Transport → Session → Presentation → Application
+- Identify whether the issue is hardware, software, or configuration.
+
+#### 3. Test the Theory
+- Use diagnostic tools to confirm.
+- Replace suspected components or settings temporarily.
+- If theory fails, create a new one.
+
+#### 4. Establish a Plan of Action
+- Document the planned fix.
+- Minimize impact on users.
+- Schedule maintenance window if needed.
+
+#### 5. Implement the Solution
+- Execute the fix.
+- Communicate with affected users.
+- Monitor system behavior during and after change.
+
+#### 6. Verify Full System Functionality
+- Confirm that all related systems operate correctly.
+- Validate with users.
+- Check for regression or side effects.
+
+#### 7. Document Findings and Lessons Learned
+- Record the root cause, fix, and verification.
+- Update knowledge base for future reference.
+- Share with team during post-incident review.
+
+---
+
+### 5.2 Common Tools
+
+#### Hardware Tools
+- **Cable tester:** verifies pinouts and continuity.
+- **Tone generator & probe:** traces cables through walls.
+- **Loopback plug:** tests NIC transmit/receive.
+- **Punch-down tool:** terminates wires on patch panels or keystones.
+- **Crimper:** attaches connectors (RJ-45, RJ-11, coax).
+- **OTDR (Optical Time-Domain Reflectometer):** measures fiber loss and distance.
+- **Light meter:** measures optical power.
+- **Multimeter:** checks voltage, resistance, continuity.
+- **Spectrum analyzer:** detects wireless interference.
+- **Wi-Fi analyzer:** identifies signal strength and channel overlap.
+
+#### Software Tools
+- **ping:** tests reachability and latency.
+- **traceroute / tracert:** shows path and hops to destination.
+- **nslookup / dig:** queries DNS records.
+- **ipconfig / ifconfig / ip:** displays IP configuration.
+- **arp / arp-a:** displays MAC-to-IP mappings.
+- **netstat:** shows active connections and listening ports.
+- **tcpdump / Wireshark:** packet capture and analysis.
+- **nmap:** network scanner for ports and services.
+- **route / ip route:** view and modify routing table.
+- **nbtstat:** NetBIOS name resolution.
+- **hostname:** verify device identity.
+- **whois:** lookup domain registration info.
+- **speedtest / iPerf:** measure bandwidth and throughput.
+- **netcat (nc):** test ports and transfer data manually.
+
+---
+
+### 5.3 Common Symptoms and Solutions
+
+#### Connectivity Issues
+| Symptom | Possible Cause | Solution |
+|----------|----------------|-----------|
+| No network connection | Disconnected or broken cable | Check physical connection, replace cable |
+| APIPA address (169.254.x.x) | DHCP server unreachable | Check DHCP server or switch port |
+| IP conflict | Duplicate static IPs | Use DHCP reservations or adjust IP |
+| High latency | Congestion, routing issue | Check QoS, analyze traceroute |
+| Intermittent connectivity | Failing NIC or cable | Replace component, test continuity |
+| Slow transfer | Duplex mismatch, interference | Match duplex, reduce interference |
+| Unreachable host | Routing problem | Check routing table, default gateway |
+
+#### Wireless Issues
+| Symptom | Possible Cause | Solution |
+|----------|----------------|-----------|
+| Weak signal | Poor placement, interference | Relocate AP, adjust channels |
+| No connectivity | Wrong SSID or key | Verify credentials |
+| Frequent disconnects | Overlapping channels, roaming | Survey environment, adjust APs |
+| Unauthorized access | Rogue AP or weak security | Enable WPA3, use WIPS |
+| Low throughput | Overcapacity | Add APs, use 5 GHz band |
+
+#### Interface Errors
+- **CRC errors:** damaged cable, interference.  
+- **Giants / runts:** frame size mismatch.  
+- **Collisions:** half-duplex misconfiguration.  
+- **Late collisions:** excessive cable length.  
+- **Drops:** buffer overflow or congestion.  
+
+Check `show interface` or SNMP stats for counters.
+
+---
+
+### 5.4 Troubleshooting Specific Technologies
+
+#### IP Addressing and DHCP
+- Verify subnet mask and gateway.
+- Ensure DHCP scope has free leases.
+- Check relay configuration (IP helper).
+- Validate static reservations and exclusions.
+
+#### DNS Issues
+- Use `nslookup` or `dig` to test name resolution.
+- Verify correct DNS server settings.
+- Flush local cache (`ipconfig /flushdns`).
+- Check forwarders and zones on DNS server.
+
+#### Routing Problems
+- Ping default gateway and next hop.
+- Check routing tables (`show ip route`).
+- Ensure static routes and dynamic protocols (OSPF, EIGRP, BGP) are configured correctly.
+- Look for asymmetric routing or blackholes.
+
+#### Switching Problems
+- VLAN mismatch on trunks.
+- Incorrect access VLAN.
+- Spanning Tree (STP) blocking.
+- Loop prevention disabled.
+- Duplicate MAC addresses.
+
+#### Firewall and ACL Issues
+- Check rule order — top-down processing.
+- Confirm implicit deny at end of ACL.
+- Verify NAT configuration.
+- Inspect log entries for drops or denies.
+
+#### VPN Problems
+- Authentication failures → wrong credentials or expired certificate.
+- Tunnel not established → protocol mismatch (IPsec vs SSL).
+- Routing issues inside tunnel → missing split-tunnel or route.
+
+#### Wireless Problems
+- Verify SSID, security mode, and channel plan.
+- Inspect RF environment with analyzer.
+- Adjust transmit power and AP placement.
+
+#### VoIP Issues
+- Jitter, latency, packet loss cause poor call quality.
+- Ensure QoS prioritization for voice VLANs.
+- Check codec compatibility and bandwidth allocation.
+
+#### Virtualization and Cloud Issues
+- Misconfigured vSwitch or port group.
+- VLAN tagging mismatch between virtual and physical switches.
+- Over-allocated resources causing contention.
+
+#### Interface and Hardware
+- Check LEDs, link status, and logs.
+- Replace SFP modules or transceivers if faulty.
+- Test cabling with certified tools.
+
+---
+
+### 5.5 Performance Optimization
+
+#### Network Bottlenecks
+- Monitor utilization on switches and routers.
+- Identify congested links via SNMP or NetFlow.
+- Upgrade bandwidth or implement load balancing.
+
+#### QoS (Quality of Service)
+- Prioritize voice and video traffic.
+- Use DSCP or CoS markings.
+- Configure queuing and shaping policies.
+
+#### Caching
+- Implement proxies or content caches to reduce WAN usage.
+
+#### Compression
+- WAN optimization devices compress and deduplicate data.
+
+#### Traffic Shaping and Policing
+- Shaping delays packets to conform to bandwidth limits.
+- Policing drops packets exceeding threshold.
+
+#### Link Aggregation (LACP)
+- Combine multiple links for redundancy and throughput.
+- Verify matching configuration on both ends.
+
+#### Firmware and Driver Updates
+- Resolve performance and compatibility issues.
+- Schedule updates during maintenance windows.
+
+---
+
+### 5.6 Troubleshooting Command Reference
+
+| Command | Description |
+|----------|-------------|
+| **ping** | Test reachability and round-trip time |
+| **traceroute / tracert** | Display hops to destination |
+| **ipconfig / ifconfig / ip a** | Show IP configuration |
+| **nslookup / dig** | Test DNS name resolution |
+| **arp / arp -a** | Display ARP cache |
+| **netstat** | Show active connections and ports |
+| **tcpdump / Wireshark** | Capture packets for analysis |
+| **route / ip route** | View or edit routing table |
+| **hostname** | Display system name |
+| **whois** | Domain registration lookup |
+| **nbtstat** | NetBIOS connection details |
+| **speedtest / iPerf** | Measure throughput |
+| **netcat (nc)** | Manual port connection testing |
+| **show interface** | Interface status on Cisco/Juniper |
+| **show ip route** | Routing table (Cisco) |
+| **show vlan / show mac-address-table** | VLAN and MAC mapping |
+| **show logging** | Review system logs |
+| **debug** | Real-time diagnostic output (use with caution) |
+
+---
+
+### 5.7 Troubleshooting Scenarios
+
+#### Scenario 1: Users Can’t Access the Internet
+- Ping gateway — success? If no, check switch or VLAN.  
+- Ping external IP — if yes, DNS issue.  
+- Ping domain — if fails, DNS server misconfigured.  
+- Verify ACLs and NAT on edge firewall.
+
+#### Scenario 2: Intermittent Connectivity
+- Check interface counters for CRC or duplex errors.  
+- Replace suspect cable or NIC.  
+- Monitor latency with continuous ping.  
+- Review switch logs for port flapping.
+
+#### Scenario 3: Wireless Clients Disconnecting
+- Survey channel overlap and interference.  
+- Update firmware and drivers.  
+- Review AP load; balance clients.  
+- Disable power-saving mode on clients.
+
+#### Scenario 4: Slow Application Performance
+- Determine whether network or application layer is slow.  
+- Test raw throughput with iPerf.  
+- Review QoS prioritization.  
+- Capture packets to check retransmissions or latency spikes.
+
+#### Scenario 5: VLAN Misconfiguration
+- Verify access and trunk port assignments.  
+- Check allowed VLANs on trunks.  
+- Use `show vlan` and `show interface trunk`.  
+- Ensure STP root bridge placement is correct.
+
+#### Scenario 6: VoIP Call Drops
+- Check jitter, latency (<150 ms target), and packet loss (<1%).  
+- Verify DSCP markings and QoS queues.  
+- Confirm correct VLAN and power via PoE.  
+- Ensure phones are receiving proper DHCP options.
+
+#### Scenario 7: VPN Users Can’t Reach Internal Hosts
+- Verify user authentication success in logs.  
+- Check VPN pool subnet and routes.  
+- Confirm split tunnel or NAT exemption settings.
+
+#### Scenario 8: Firewall Rules Blocking Legitimate Traffic
+- Examine logs for denied packets.  
+- Adjust ACL order or object groups.  
+- Test using temporary rule changes during maintenance.
+
+---
+
