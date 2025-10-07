@@ -1,0 +1,309 @@
+## 3.0 Network Operations (17% of the exam)
+
+### 3.1 Network Documentation
+
+#### Operations Procedures
+- Define clear procedures for normal and emergency operations.
+- Include **downtime notifications**, **facility issues**, and **software upgrade schedules**.
+- Maintain **change control** and **testing procedures** before deployment.
+
+#### Network Mapping
+Two main types of network maps:
+
+1. **Logical Map** — Shows how data moves between devices and networks.
+   - Displays IP subnets, VLANs, routing, firewalls.
+   - Often created with tools like Visio, Lucidchart, or Gliffy.
+   - Useful for understanding traffic flow.
+
+2. **Physical Map** — Shows actual hardware layout and cabling.
+   - Displays rack diagrams, switches, routers, cable connections.
+   - Useful for troubleshooting and planning upgrades.
+
+#### Change Management
+The structured process of modifying network systems:
+- Plan → Test → Approve → Implement → Document → Review.
+- Each change should have rollback steps in case of failure.
+- Helps maintain uptime and security compliance.
+
+#### Cable Management and Labeling
+- Follow **ANSI/TIA/EIA-606** standards for documentation.
+- Use **unique identifiers** and **color coding**.
+- Maintain a **centralized database** for labeling and port assignments.
+
+#### System Labeling
+Every device must have:
+- Unique system ID or asset tag.
+- Serial number and model.
+- Visible physical label and entry in asset tracking software.
+
+#### Circuit Labeling
+- Record details of WAN circuits (IDs, provider info, contact numbers).
+- Maintain documentation for troubleshooting and support calls.
+
+#### Patch Panel Labeling
+- Each port labeled with its endpoint or room number.
+- Enables quick identification and reduces human error.
+
+#### Baselines
+- Define **normal operating conditions** for performance metrics.
+- Use baselines to detect anomalies and anticipate upgrades.
+
+#### Inventory Management
+Keep an up-to-date record of all assets:
+- Device type, model, serial, location, and configuration.
+- Include purchase date, warranty, and ownership info.
+- Barcode, RFID, or QR code tagging recommended.
+
+Use **inventory management software** with integrated help desk and reporting.
+
+---
+
+### 3.2 Availability Concepts
+
+#### Fault Tolerance
+- Systems must continue operating after a component failure.
+- Common methods:
+  - **Redundancy** (duplicate hardware)
+  - **Load balancing**
+  - **RAID** storage
+  - **Failover clusters**
+
+#### Redundancy
+- Backup components or systems that take over automatically.
+- Examples: dual power supplies, RAID drives, redundant routers.
+
+#### High Availability
+- Systems that provide **continuous uptime** (99.999% or higher).
+- No single point of failure.
+- May require clustering, heartbeat monitoring, or automatic failover.
+
+#### Load Balancing
+- Distributes workload across multiple servers or network paths.
+- Prevents overloads and increases fault tolerance.
+- Can operate at Layer 4 (TCP) or Layer 7 (application).
+
+#### NIC Teaming
+- Combines multiple network interfaces on one device.
+- Increases throughput and redundancy.
+- Supported in most OS (bonding, link aggregation, etc.).
+
+---
+
+### 3.2 Power Management
+
+#### UPS (Uninterruptible Power Supply)
+- Provides temporary power during blackouts or surges.
+- Types:
+  - Standby
+  - Line-interactive
+  - Online (double conversion)
+- Supports graceful shutdown and avoids data loss.
+
+#### Generators
+- Long-term backup power solution using fuel.
+- May power entire building or specific systems.
+- Takes a few seconds to start; UPS fills the gap.
+
+#### Dual Power Supplies
+- Two independent PSUs in a server.
+- If one fails, the other takes full load.
+
+#### Hot Swappable Components
+- Can be replaced without shutting down the system.
+- Common for power supplies, drives, fans.
+
+---
+
+### 3.2 Backup and Recovery
+
+#### Backup Types
+- **Full Backup:** All data; resets archive bit; long to perform but fast to restore.  
+- **Incremental Backup:** Only changed files since last incremental; fast backup, slow restore.  
+- **Differential Backup:** Changed files since last full backup; medium for both backup and restore.  
+
+#### Archive Bit
+- Marks if a file has changed since the last backup.
+
+#### Recovery Sites
+- **Cold Site:** Empty building; slowest recovery.  
+- **Warm Site:** Has space and equipment, but not fully configured.  
+- **Hot Site:** Full duplicate, constantly synchronized, instant recovery.  
+
+#### Testing Backups
+- Always test restoration process to ensure data integrity and completeness.
+
+---
+
+### 3.3 Process Monitoring
+
+#### Log Management
+- Collect system logs via **Syslog** or **Windows Event Viewer**.
+- Store on **centralized log servers**.
+- Rotate logs to manage disk usage.
+- Compress or archive old logs.
+
+#### Data Graphing
+- Convert raw log data into visual metrics.
+- Tools: Grafana, Kibana, PRTG, SolarWinds.
+- Use graphs for performance, trends, and forecasting.
+
+#### Port Scanning
+- Tools like **Nmap** identify open ports, OS, and services.
+- Detect unauthorized devices or services.
+- Use scripts (NSE) for deeper analysis.
+
+#### Vulnerability Scanning
+- Detect missing patches, misconfigurations, and known CVEs.
+- Types:
+  - **External** (internet-facing)
+  - **Internal** (within LAN)
+- Tools: Nessus, OpenVAS, Qualys.
+
+#### Patch Management
+- Schedule regular updates (monthly or emergency).
+- Track installed and pending updates.
+- Maintain rollback plans for failed patches.
+
+#### Baseline Review
+- Compare system performance against normal levels.
+- Identify degradation or abnormal traffic patterns.
+
+#### Protocol Analyzers
+- Capture and inspect traffic (Wireshark, tcpdump).
+- Helps identify errors, retransmissions, or misconfigurations.
+
+---
+
+### 3.3 Event Management
+
+#### Interface Monitoring
+- Use SNMP or NetFlow to track interface status.
+- Trigger alerts on downtime or abnormal performance.
+
+#### SIEM (Security Information and Event Management)
+- Centralized analysis of logs from all systems.
+- Provides:
+  - **Correlation** of different event types.
+  - **Real-time alerting.**
+  - **Forensic reporting** for investigations.
+
+#### Syslog
+- Standard for message logging.
+- Used to send logs from routers, firewalls, and servers to a SIEM.
+- Requires large storage space for retention.
+
+#### SIEM Dashboard
+- Aggregated view of network and security data.
+- Graphs, charts, and timelines for fast analysis.
+
+#### SNMP Monitoring
+- **SNMPv3** adds encryption, integrity, and authentication.
+- Used for device metrics (uptime, utilization, errors).
+
+#### Performance Metrics
+- Key metrics:
+  - Bandwidth utilization
+  - Packet loss
+  - Latency and jitter
+  - Interface resets
+  - CPU/memory load
+- Collected with SNMP, NetFlow, or dedicated tools.
+
+---
+
+### 3.4 Remote Access
+
+#### VPN Technologies
+
+**IPsec (Layer 3):**
+- Provides encryption and authentication at packet level.
+- Ensures confidentiality and integrity.
+- Common for **site-to-site VPNs**.
+
+**SSL/TLS VPN (Layer 7):**
+- Client-to-site VPNs using browsers or software clients.
+- Easy to deploy; user authentication via credentials.
+
+**DTLS VPN (Datagram TLS):**
+- Uses UDP instead of TCP for real-time applications (VoIP, video).
+
+---
+
+#### Remote Desktop Access
+- **RDP** (Windows), **VNC** (cross-platform), **TeamViewer**, etc.
+- Enables full desktop sharing for support or remote work.
+- Watch out for open RDP ports on firewalls.
+
+#### SSH
+- Encrypted console communication.
+- Used for remote device configuration (routers, servers, firewalls).
+
+#### Web-Based Management
+- Managed via browser (HTTPS).
+- Convenient but not all settings available.
+
+#### File Transfers
+- **SFTP** (SSH File Transfer Protocol)  
+- **FTPS** (FTP over SSL)  
+- **TFTP** (simple, no auth/encryption)  
+
+#### Out-of-Band Management
+- Management via separate dedicated network or modem.
+- Accessible even when the main network is down.
+- Adds resilience and remote troubleshooting capability.
+
+---
+
+### 3.5 Policies and Best Practices
+
+#### Privileged User Agreement (PUA)
+- Defines acceptable behavior for users with elevated rights.
+
+#### Password Policies
+- Strong, complex passwords; periodic changes.
+- Multi-factor authentication when possible.
+- Difficult recovery procedures to prevent abuse.
+
+#### Onboarding / Offboarding
+- **Onboarding:** Provide credentials, hardware, access rights.  
+- **Offboarding:** Remove access, reclaim devices, archive data.
+
+#### Licensing and Legal Compliance
+- Maintain valid software licenses.
+- Track expirations, updates, and export restrictions.
+
+#### Data Loss Prevention (DLP)
+- Prevent unauthorized sharing or transfer of sensitive data.
+- Enforce via email filters, network monitors, and endpoint agents.
+
+#### Remote Access Policies
+- Define who can access what, and how.
+- Include 3rd-party vendor guidelines and MFA requirements.
+
+#### Incident Response Policy
+- Define how to detect, classify, and respond to security events.
+- Include escalation paths and response timelines.
+
+#### BYOD / Mobile Device Management
+- Define rules for personal device use on company networks.
+- Use MDM software to enforce encryption, password policy, and remote wipe.
+
+#### Acceptable Use Policy (AUP)
+- Defines proper use of company IT resources.
+- Reduces legal liability.
+
+#### NDA (Non-Disclosure Agreement)
+- Protects confidential information internally and externally.
+
+#### System Lifecycle Management
+- Secure asset disposal.
+- Data destruction methods:
+  - Shredding, degaussing, drilling, or incineration.
+- Comply with local laws for e-waste.
+
+#### Safety Procedures
+- Define safety standards for equipment handling and environment.
+- Includes ESD (electrostatic discharge), battery disposal, and hazardous material control.
+
+---
+
