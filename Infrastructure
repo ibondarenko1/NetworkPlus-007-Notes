@@ -1,0 +1,250 @@
+## 2.0 Infrastructure (18% of the exam)
+
+### 2.1 Copper Cabling
+There are twisted pairs inside the cable. One of the signals will be positive and one will be negative. The twist helps to stop interference. The different pairs in the cable will have different twist rates.
+
+**UTP (Unshielded Twisted Pair)** — no shielding anywhere.  
+**STP (Shielded Twisted Pair)** — shielding around the whole cable or the individual pairs. Has a grounding wire.
+
+**Abbreviations:**
+- U = Unshielded  
+- S = Shielded with braided shield  
+- F = Foil shield (over cable shielding) / (individual pairs shielding)
+
+Examples: UTP, STP, F/UTP, S/FTP, etc.
+
+**Cable specs:**
+- Cat 3 = 10BASE-T at 100m  
+- Cat 5 = 100BASE-TX or 1000BASE-T at 100m  
+- Cat 5e = 100BASE-TX or 1000BASE-T at 100m  
+- Cat 6 = 10GBASE-T at 37–55m  
+- Cat 6a = 10GBASE-T at 100m  
+- Cat 7 = 10GBASE-T at 100m  
+
+**Plenum cables:**  
+A plenum is a shared airspace (above ceiling) used by HVAC systems. Cables inside must be fire-rated (less flexible but safer).
+
+**Coaxial cables:**  
+Used for TV and modems. Central conductor → insulation → shielding → jacket.
+
+---
+
+### 2.1 Copper Connectors
+- **RJ11** — telephone, 6P2C  
+- **RJ45** — Ethernet, 8P8C  
+- **BNC** — coaxial, older WAN links (bulky)  
+- **DB-9 / DB-25** — serial connections (console or modem)  
+- **F-connector** — for cable TV and modems  
+
+---
+
+### 2.1 Optical Fiber
+Uses light (LED or laser) instead of electricity.  
+No EMI, long distances, very secure.
+
+**Types:**
+- **Multimode Fiber (MMF)** — shorter distance (≤2 km), uses LED  
+- **Single-mode Fiber (SMF)** — longer distance (up to 100 km), uses laser  
+
+**Connectors:**
+- **ST** (Straight Tip) — bayonet, round  
+- **SC** (Subscriber Connector) — square push-pull  
+- **LC** (Lucent Connector) — small, modern  
+- **MT-RJ** — smallest, similar to RJ-45
+
+**Polish types:**
+- **UPC (Ultra Polished Connector)** — 0° angle, high return loss  
+- **APC (Angled Polished Connector)** — 8° angle, lower reflection  
+
+---
+
+### 2.1 Copper Termination Standards
+Cable testers verify terminations.
+
+**T568A**  
+1. White/Green  
+2. Green  
+3. White/Orange  
+4. Blue  
+5. White/Blue  
+6. Orange  
+7. White/Brown  
+8. Brown  
+
+**T568B**  
+1. White/Orange  
+2. Orange  
+3. White/Green  
+4. Blue  
+5. White/Blue  
+6. Green  
+7. White/Brown  
+8. Brown  
+
+**Straight-through cable:** pin 1→1, 2→2, etc.  
+**Crossover cable:** 1↔3, 2↔6 for connecting similar devices.  
+**Auto-MDI-X** — modern devices automatically correct crossover.
+
+---
+
+### 2.1 Network Termination Points
+**Patch panel:**  
+Connects long cable runs to switches. Simplifies relocation and maintenance.  
+Use numbering, color coding, and cable management.
+
+**66-block** — old telephone standard.  
+**110-block** — modern Ethernet punch-down.  
+
+Fiber distribution panels serve the same purpose for optical cabling.  
+Maintain proper bend radius and some slack for future rework.
+
+---
+
+### 2.1 Network Transceivers
+**Transceivers = transmit + receive** signals.
+
+- **GBIC** — early modular interface, large form factor.  
+- **SFP (Small Form-factor Pluggable)** — 1 Gbps, compact.  
+- **SFP+** — 10–16 Gbps.  
+- **QSFP / QSFP+** — “quad SFP”, four channels in one module.  
+- **BiDi (Bidirectional)** — uses one fiber for both TX/RX.  
+
+---
+
+### 2.1 Ethernet Standards
+Common copper & fiber types:
+- **100BASE-T** — 2 pairs, 100 Mbps  
+- **1000BASE-T** — 4 pairs, 1 Gbps  
+- **1000BASE-SX** — MMF, 220–500 m  
+- **1000BASE-LX** — SMF up to 5 km  
+- **10GBASE-T** — copper, 500 MHz  
+- **10GBASE-SR/LR** — short/long range fiber  
+
+---
+
+### 2.2 Networking Devices
+**Hub (Layer 1)** — repeats signal to all ports, half-duplex, inefficient.  
+**Bridge (Layer 2)** — connects two LAN segments, software-based.  
+**Switch (Layer 2)** — forwards using MAC address table, hardware (ASIC).  
+**Router (Layer 3)** — forwards based on IP, connects different networks.  
+**Firewall (Layer 3–7)** — allows/denies traffic, inspects packets, can be VPN endpoint.  
+**WAP (Wireless Access Point)** — Layer 2 bridge for wireless clients.  
+**Modem** — converts analog↔digital signals, ADSL or cable.  
+**Media converter** — copper ↔ fiber.  
+**Wireless repeater** — extends coverage.  
+**VoIP endpoint** — physical or software phone.
+
+---
+
+### 2.3 Advanced Networking Devices
+**Multilayer switch** — combines switch (L2) and router (L3).  
+**WLAN controller** — central management for multiple APs.  
+**Load balancer** — distributes requests across servers; enables redundancy and scaling.  
+**IDS/IPS** — detect (IDS) or block (IPS) malicious activity.  
+**Proxy** — intermediates and filters requests, adds caching and security.  
+**VPN concentrator** — handles VPN connections.  
+**AAA server (RADIUS/TACACS+)** — authentication, authorization, accounting.  
+**UTM appliance** — “all-in-one” (firewall, IDS, spam, VPN).  
+**NGFW** — deep packet inspection (Layer 7).  
+**VoIP PBX/Gateway** — routes voice traffic.  
+**Content filter** — blocks malicious or inappropriate content.
+
+---
+
+### 2.4 Virtual Networking
+**Virtualization** abstracts physical hardware.
+
+**Hypervisor** — manages multiple virtual machines (VMs).  
+Each VM has virtual NICs and its own network segment.  
+Can use:
+- NAT (shared IP)
+- Bridged (direct LAN)
+- Host-only (isolated lab)
+
+**vSwitch** — software-defined switch.  
+**VLAN tagging** allows traffic separation within the virtual environment.  
+**Virtual routers / firewalls** extend segmentation and security.
+
+---
+
+### 2.4 Network Storage
+**NAS (Network Attached Storage)**  
+- File-level access over the network.  
+- Uses protocols like SMB/CIFS, NFS.
+
+**SAN (Storage Area Network)**  
+- Block-level access (more efficient).  
+- Common protocols:
+  - **Fibre Channel (FC)** — 16 Gbps, specialized hardware.  
+  - **FCoE** — Fibre Channel over Ethernet, no new hardware.  
+  - **iSCSI** — uses IP network to send SCSI commands.  
+  - **FCIP** — Fibre Channel over IP (for routing between sites).  
+  - **InfiniBand** — very high speed (100–200 Gbps), HPC environments.
+
+**Jumbo frames** — payload >1500 bytes (up to 9000 bytes), improves throughput; all devices must support it.
+
+---
+
+### 2.5 WAN Services
+**ISDN (Integrated Services Digital Network)**  
+- BRI: 2×64 kbps bearer + 16 kbps signaling  
+- PRI: 23 B + 1 D (T1) or 30 B + 1 D (E1)
+
+**T-carriers / E-carriers**
+- **T1** — 1.544 Mbps, 24 channels  
+- **E1** — 2.048 Mbps, 32 channels  
+- **T3 (DS3)** — 44.736 Mbps (28 T1s)  
+- **E3** — 34.368 Mbps (16 E1s)
+
+**Optical Carrier (OC) rates (SONET):**
+- OC-3 = 155.52 Mbps  
+- OC-12 = 622.08 Mbps  
+- OC-48 = 2.49 Gbps  
+- OC-192 = 9.95 Gbps  
+
+**DSL / ADSL:**  
+Common home WAN using telephone lines; asymmetric (faster download).
+
+**Metro Ethernet:**  
+Ethernet services across a city or campus.
+
+**Broadband (Cable / DOCSIS):**  
+Uses coaxial infrastructure, 4–1000 Mbps speeds.
+
+**Dial-up:**  
+56 kbps legacy over PSTN.
+
+---
+
+### 2.5 WAN Transmission Mediums
+- **Satellite:** global coverage, high latency (~250 ms), weather-sensitive.  
+- **Copper:** cheap, easy, limited distance/speed.  
+- **Fiber:** high bandwidth, expensive, long-distance core links.  
+- **Wireless (cellular, microwave):** mobile, flexible, limited range.  
+
+---
+
+### 2.5 WAN Technologies
+**Frame Relay:** legacy packet-switched WAN.  
+**ATM:** fixed 53-byte cells, high speed, low latency.  
+**MPLS (Multiprotocol Label Switching):**  
+Labels packets for routing; supports multiple protocols; modern WAN backbone.  
+**PPP (Point-to-Point Protocol):** authentication, compression, error detection.  
+**PPPoE:** PPP over Ethernet (common in DSL).  
+**DMVPN:** Dynamic Mesh VPN (auto-creates tunnels).  
+**SIP trunking:** connects IP-PBX to VoIP provider.  
+
+---
+
+### 2.5 WAN Termination
+**Demarcation Point (Demarc):**  
+Boundary between provider and customer.  
+
+**CSU/DSU (Channel/Data Service Unit):**  
+Interfaces between router and WAN provider; sometimes integrated into router.
+
+**Smart Jack:**  
+Provider-owned device for diagnostics, alarms, and remote configuration.  
+
+---
+
